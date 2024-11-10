@@ -36,7 +36,7 @@ function generateBoard() {
             const td = document.createElement('td');
             if (puzzle[row][col] !== 0) {
                 td.textContent = puzzle[row][col];
-                td.classList.add('fixed');
+                td.classList.add('fixed'); // 初期値には 'fixed' クラスを追加
             } else {
                 td.addEventListener('click', () => selectCell(td, row, col));
             }
@@ -48,8 +48,11 @@ function generateBoard() {
 
 // セルを選択
 function selectCell(cell, row, col) {
+    // 初期値セルは選択不可
+    if (cell.classList.contains('fixed')) return;
+
     // すでに選択されているセルがある場合、その選択を解除
-    if (selectedCell && selectedCell.cell !== cell) {
+    if (selectedCell) {
         selectedCell.cell.classList.remove('selected');
     }
 
@@ -61,10 +64,27 @@ function selectCell(cell, row, col) {
 // 数字を入力
 function inputNumber(number) {
     if (!selectedCell) return;
+
     const { cell, row, col } = selectedCell;
+
     cell.textContent = number;
     puzzle[row][col] = number;
+    cell.classList.add('user-input'); // ユーザー入力のセルに 'user-input' クラスを追加
     validateInput(number, row, col);
+}
+
+// クリア機能
+function clearCell() {
+    if (!selectedCell) return;
+
+    const { cell, row, col } = selectedCell;
+
+    // ユーザー入力のセルのみクリア
+    if (cell.classList.contains('user-input')) {
+        cell.textContent = '';
+        cell.classList.remove('user-input'); // 'user-input' クラスを解除
+        puzzle[row][col] = 0;
+    }
 }
 
 // 入力の検証

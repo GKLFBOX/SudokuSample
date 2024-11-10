@@ -33,6 +33,18 @@ h1 {
     border: 1px solid black;
 }
 
+/* 初期値セルのスタイル */
+#board td.fixed {
+    font-weight: bold; /* 初期値の数字を太字で表示 */
+    color: #000; /* 黒色で表示 */
+    cursor: default; /* 初期値セルは選択不可 */
+}
+
+/* ユーザーが入力したセルのスタイル */
+#board td.user-input {
+    color: #007bff; /* 青色で表示 */
+}
+
 /* 3x3ごとの区切り線を太くする */
 #board tr:nth-child(3n) td {
     border-bottom: 2px solid black;
@@ -58,7 +70,7 @@ h1 {
 .number-buttons {
     display: flex;
     justify-content: space-around; /* ボタン間の均等配置 */
-    margin-bottom: 20px;
+    margin-bottom: 10px; /* 数字ボタンとクリアボタンの間隔を調整 */
     width: 100%;
     max-width: 360px; /* コンテナの最大幅 */
     padding: 0 10px;
@@ -79,6 +91,25 @@ h1 {
     background-color: #f0f0f0; /* ボタンの背景色 */
     border-radius: 50%; /* 丸いボタン */
     border: none; /* ボタンの枠線をなくす */
+}
+
+/* クリアボタンのコンテナ */
+.clear-button {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* クリアボタンのスタイル */
+.clear-button button {
+    background-color: #e57373; /* 赤色 */
+    color: white;
+    font-size: 16px;
+    border-radius: 10px;
+    width: 80px;
+    height: 40px;
+    border: none;
 }
 
 /* メッセージ（エラーやクリアメッセージ）のスタイル */
