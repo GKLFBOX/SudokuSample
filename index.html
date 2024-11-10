@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数独ゲーム</title>
+    <!-- 外部CSSファイルの読み込み -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>数独ゲーム</h1>
+    <div class="sudoku-board">
+        <!-- 9x9 数独盤面 -->
+        <table id="board">
+            <!-- JavaScriptで生成するため、ここは空にしておきます -->
+        </table>
+    </div>
+    <div class="number-buttons">
+        <!-- 1〜9の数字ボタン -->
+        <button onclick="inputNumber(1)">1</button>
+        <button onclick="inputNumber(2)">2</button>
+        <button onclick="inputNumber(3)">3</button>
+        <button onclick="inputNumber(4)">4</button>
+        <button onclick="inputNumber(5)">5</button>
+        <button onclick="inputNumber(6)">6</button>
+        <button onclick="inputNumber(7)">7</button>
+        <button onclick="inputNumber(8)">8</button>
+        <button onclick="inputNumber(9)">9</button>
+    </div>
+    <!-- エラーメッセージやクリアメッセージを表示 -->
+    <p id="message"></p>
+    <!-- 外部JavaScriptファイルの読み込み -->
+    <script src="script.js"></script>
+</body>
+</html>
