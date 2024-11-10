@@ -1,30 +1,63 @@
-// 初期盤面 (0は空マス)
-const puzzle = [
-    [5, 3, 0, 0, 7, 0, 0, 0, 0],
-    [6, 0, 0, 1, 9, 5, 0, 0, 0],
-    [0, 9, 8, 0, 0, 0, 0, 6, 0],
-    [8, 0, 0, 0, 6, 0, 0, 0, 3],
-    [4, 0, 0, 8, 0, 3, 0, 0, 1],
-    [7, 0, 0, 0, 2, 0, 0, 0, 6],
-    [0, 6, 0, 0, 0, 0, 2, 8, 0],
-    [0, 0, 0, 4, 1, 9, 0, 0, 5],
-    [0, 0, 0, 0, 8, 0, 0, 7, 9]
-];
-
-// 正解
-const solution = [
-    [5, 3, 4, 6, 7, 8, 9, 1, 2],
-    [6, 7, 2, 1, 9, 5, 3, 4, 8],
-    [1, 9, 8, 3, 4, 2, 5, 6, 7],
-    [8, 5, 9, 7, 6, 1, 4, 2, 3],
-    [4, 2, 6, 8, 5, 3, 7, 9, 1],
-    [7, 1, 3, 9, 2, 4, 8, 5, 6],
-    [9, 6, 1, 5, 3, 7, 2, 8, 4],
-    [2, 8, 7, 4, 1, 9, 6, 3, 5],
-    [3, 4, 5, 2, 8, 6, 1, 7, 9]
-];
-
+let puzzle = [];
+let solution = [];
 let selectedCell = null;
+
+// ランダムに数独の解を生成する関数
+function generateSolution() {
+    const baseGrid = [
+        [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        [4, 5, 6, 7, 8, 9, 1, 2, 3],
+        [7, 8, 9, 1, 2, 3, 4, 5, 6],
+        [2, 3, 4, 5, 6, 7, 8, 9, 1],
+        [5, 6, 7, 8, 9, 1, 2, 3, 4],
+        [8, 9, 1, 2, 3, 4, 5, 6, 7],
+        [3, 4, 5, 6, 7, 8, 9, 1, 2],
+        [6, 7, 8, 9, 1, 2, 3, 4, 5],
+        [9, 1, 2, 3, 4, 5, 6, 7, 8],
+    ];
+
+    // 行と列をランダムに入れ替えて解を生成
+    for (let i = 0; i < 10; i++) {
+        shuffleRows(baseGrid);
+        shuffleColumns(baseGrid);
+    }
+
+    return baseGrid;
+}
+
+// 行をランダムに入れ替える
+function shuffleRows(grid) {
+    const section = Math.floor(Math.random() * 3) * 3;
+    const row1 = section + Math.floor(Math.random() * 3);
+    const row2 = section + Math.floor(Math.random() * 3);
+    [grid[row1], grid[row2]] = [grid[row2], grid[row1]];
+}
+
+// 列をランダムに入れ替える
+function shuffleColumns(grid) {
+    const section = Math.floor(Math.random() * 3) * 3;
+    const col1 = section + Math.floor(Math.random() * 3);
+    const col2 = section + Math.floor(Math.random() * 3);
+    for (let row = 0; row < 9; row++) {
+        [grid[row][col1], grid[row][col2]] = [grid[row][col2], grid[row][col1]];
+    }
+}
+
+// 問題を生成する関数
+function generatePuzzle(difficulty = 40) {
+    solution = generateSolution();
+    puzzle = solution.map(row => [...row]);
+
+    let emptyCells = difficulty; // 難易度に応じて空白セルの数を決定
+    while (emptyCells > 0) {
+        const row = Math.floor(Math.random() * 9);
+        const col = Math.floor(Math.random() * 9);
+        if (puzzle[row][col] !== 0) {
+            puzzle[row][col] = 0;
+            emptyCells--;
+        }
+    }
+}
 
 // 盤面を生成
 function generateBoard() {
@@ -111,4 +144,10 @@ function checkClear() {
 }
 
 // ゲームの初期化
-generateBoard();
+function initializeGame() {
+    generatePuzzle(); // ランダムな問題を生成
+    generateBoard();  // 盤面を表示
+}
+
+// 初期化を実行
+initializeGame();
